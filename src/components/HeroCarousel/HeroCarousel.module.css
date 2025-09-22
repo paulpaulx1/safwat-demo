@@ -1,0 +1,326 @@
+/* src/components/HeroCarousel/HeroCarousel.module.css */
+
+.carousel {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  z-index: 1;
+}
+
+.slide.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Base: every slide's image sits at the final zoom */
+.image {
+  object-fit: cover;
+  animation: heroZoom 8s ease-out both paused;
+  will-change: transform;
+  backface-visibility: hidden;
+  transform: translateZ(0); /* promote to its own layer to avoid hiccups */
+}
+
+/* The active slide resumes (runs) the animation */
+.slide.active .image {
+  animation-play-state: running;
+}
+
+/* Zoom keyframes (1 -> 1.05) */
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.05); }
+}
+
+/* keep the scale after animation ends */
+.slide:not(.active) .image {
+  transform: scale(1.05); /* stays zoomed instead of snapping back */
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(26, 26, 26, 0.25);
+  z-index: 3;
+}
+
+/* Logo Overlay */
+.logoOverlay {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 10;
+  text-align: center;
+  width: 100%;
+  padding: 0 2rem;
+}
+
+.logo {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 2.5rem;
+  font-weight: 300;
+  font-style: normal;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.15em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+  text-transform: uppercase;
+  width: 100%;
+}
+
+/* Navigation Arrows */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+}
+
+.arrow:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.prevArrow {
+  left: 3rem;
+}
+
+.nextArrow {
+  right: 3rem;
+}
+
+/* Project Info Bottom Left */
+.projectInfo {
+  position: absolute;
+  bottom: 4rem;
+  left: 4rem;
+  z-index: 10;
+  color: #ffffff;
+  max-width: 300px;
+}
+
+.projectTitle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 1.5rem;
+  font-weight: 400;
+  color: #ffffff;
+  margin: 0 0 0.5rem 0;
+  letter-spacing: 0.02em;
+}
+
+.projectCategory {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 .3rem 0;
+  letter-spacing: 0.02em;
+}
+
+.learnMore {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.9rem;
+  font-weight: 400;
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  letter-spacing: 0.05em;
+  transition: color 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;          /* center-align text & icon */
+  gap: 0.5rem;                  /* a little tighter */
+  line-height: 1;               /* prevents extra baseline wobble */
+}
+
+.learnMore:hover { color: #fff; transform: scale(1.02); }
+
+/* The small circular arrow icon next to “Learn More” */
+.learnMoreIcon {
+  width: 1.5em;       /* a bit larger than text */
+  height: 1.5em;
+  display: inline-block;
+  vertical-align: -0.125em;
+  flex: 0 0 auto;
+  transition: transform 0.3s ease;
+  stroke-width: 2;     /* helps if your SVG paths support stroke */
+}
+
+.learnMore:hover .learnMoreIcon { transform: translateX(4px); }
+.breadcrumbs {
+  position: absolute;
+  bottom: 4rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  display: flex;
+  gap: 1rem;
+}
+
+.breadcrumb {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(4px);
+}
+
+.breadcrumb:hover {
+  background: rgba(255, 255, 255, 0.4);
+  transform: scale(1.2);
+}
+
+.breadcrumbActive {
+  background: rgba(255, 255, 255, 0.8);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.3);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .logo {
+    font-size: 2rem;
+    letter-spacing: 0.1em;
+  }
+
+  .projectInfo {
+    bottom: 2rem;
+    left: 2rem;
+    right: 2rem;
+    max-width: none;
+  }
+
+  .projectTitle {
+    font-size: 1.3rem;
+  }
+
+  .projectCategory {
+    font-size: 0.85rem;
+  }
+
+  .learnMore {
+    font-size: 0.85rem;
+  }
+
+  .arrow {
+    width: 48px;
+    height: 48px;
+  }
+
+  .prevArrow {
+    left: 1.5rem;
+  }
+
+  .nextArrow {
+    right: 1.5rem;
+  }
+
+  .breadcrumbs {
+    bottom: 2rem;
+    gap: 0.75rem;
+  }
+
+  .breadcrumb {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 1.4rem;
+    letter-spacing: 0.08em;
+  }
+
+  .projectInfo {
+    bottom: 1.5rem;
+    left: 1.5rem;
+    right: 1.5rem;
+  }
+
+  .projectTitle {
+    font-size: 1.2rem;
+  }
+
+  .projectCategory {
+    font-size: 0.8rem;
+  }
+
+  .learnMore {
+    font-size: 0.8rem;
+  }
+
+  .arrow {
+    width: 40px;
+    height: 40px;
+  }
+
+  .prevArrow {
+    left: 1rem;
+  }
+
+  .nextArrow {
+    right: 1rem;
+  }
+
+  .breadcrumbs {
+    bottom: 1.5rem;
+    gap: 0.5rem;
+  }
+
+  .breadcrumb {
+    width: 8px;
+    height: 8px;
+  }
+}
+
+/* Accessibility */
+.arrow:focus,
+.breadcrumb:focus {
+  outline: 2px solid rgba(255, 255, 255, 0.8);
+  outline-offset: 2px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .slide,
+  .image,
+  .arrow,
+  .breadcrumb {
+    transition: none;
+  }
+}
+

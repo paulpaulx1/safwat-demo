@@ -1,0 +1,139 @@
+.thumbnailSection {
+  padding: 5rem 0 6rem;
+  background: #fff;
+}
+
+.container {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Header: title left, link right */
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.sectionTitle {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 2.4rem;
+  font-weight: 600;
+  color: #3b3b3b;
+  margin: 0;
+  letter-spacing: 0.01em;
+}
+
+.viewAllLink {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-size: 0.95rem;
+  text-decoration: none;
+  color: #3b3b3b;
+  position: relative;
+  padding-bottom: 0.4rem;
+}
+.viewAllLink::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: #bdbdbd;
+}
+
+/* Two-up grid like the screenshot */
+.thumbnailGrid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.25rem;
+}
+
+.card { cursor: pointer; }
+
+.imageWrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;      /* tall-ish widescreen */
+  overflow: hidden;
+  background: #111;
+}
+
+.image {
+  object-fit: cover;
+  transform: scale(1.02);     /* subtle default zoom */
+  transition: transform 600ms ease;
+  will-change: transform;
+}
+.card:hover .image { transform: scale(1.06); }
+
+/* dark overlay gradient */
+.overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0) 40%, rgba(0,0,0,0.45) 100%);
+  transition: opacity 300ms ease;
+  opacity: 0.9;               /* similar to reference */
+}
+.card:hover .overlay { opacity: 1; }
+
+/* bottom info bar */
+.info {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 1.5rem;
+  color: #fff;
+}
+
+.left { pointer-events: none; }
+
+.title {
+  margin: 0 0 0.35rem 0;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  font-weight: 700;
+  font-size: 1.2rem;
+  letter-spacing: 0.01em;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.35);
+}
+
+.category {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.9;
+}
+
+/* “MORE DETAILS ›” on the right */
+.right {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  opacity: 0.9;
+  transition: transform 250ms ease, opacity 250ms ease;
+}
+.more {
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.chev { font-size: 1.4rem; line-height: 1; }
+
+.card:hover .right {
+  transform: translateX(4px);
+  opacity: 1;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .sectionHeader { flex-direction: column; align-items: flex-start; gap: 0.25rem; }
+  .thumbnailGrid { grid-template-columns: 1fr; gap: 1.5rem; }
+  .sectionTitle { font-size: 2rem; }
+  .imageWrap { aspect-ratio: 16 / 10; }
+}
