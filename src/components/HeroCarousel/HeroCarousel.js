@@ -102,7 +102,7 @@ export default function HeroCarousel({ onSlideChange }) {
 
       {/* Logo Overlay */}
       <div className={styles.logoOverlay}>
-        <h1 className={styles.logo}>SAFWAT | DESIGN - BUILD | NYC</h1>
+        <h1 className={styles.logo}>SAFWAT | DESIGN + BUILD | NYC</h1>
       </div>
 
       {/* Project Info Bottom Left */}
